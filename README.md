@@ -14,12 +14,12 @@ var image = {
     height: 200
 }
 
-pdfMaker.initEmptyPdf("Blah")
-pdfMaker.addRow(new Date().toGMTString(), image, "Some Step 1")
-pdfMaker.addRow(new Date().toGMTString(), image, "Some Step 2")
-pdfMaker.createPdf('document1.pdf')
-pdfMaker.initEmptyPdf()
-pdfMaker.addRow(new Date().toGMTString(), image, "Another step entirely")
-pdfMaker.createPdf('document2.pdf')
-pdfMaker.mergeDocuments(['document1.pdf','document2.pdf'], 'merged.pdf')
+pdfMaker.initEmptyPdf("Before Test")
+pdfMaker.addRow(new Date().toGMTString(), image, "Step 1")
+pdfMaker.createPdf('before.pdf')
+pdfMaker.initEmptyPdf("Test Finishes correctly")
+pdfMaker.addRow(new Date().toGMTString(), image, "Step 1")
+pdfMaker.addRow(new Date().toGMTString(), image, "Assert Step 1")
+pdfMaker.createPdf('test1.pdf')
+pdfMaker.mergeDocuments(['before.pdf','test1.pdf'], 'final.pdf')
 ```

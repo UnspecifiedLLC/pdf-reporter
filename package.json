@@ -1,0 +1,16 @@
+{
+  "name": "pdf-reporter",
+  "version": "1.0.0",
+  "description": "PDF Reporter",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "start": "index.js"
+  },
+  "author": "Shannon Code <UNspecified>",
+  "license": "MIT",
+  "dependencies": {
+    "easy-pdf-merge": "^0.2.2",
+    "pdfmake": "^0.1.59"
+  }
+}

@@ -1,10 +1,11 @@
 // Define font files
+console.log( )
 var fonts = {
    Roboto: {
-    normal: 'fonts/Roboto-Regular.ttf',
-    bold: 'fonts/Roboto-Medium.ttf',
-    italics: 'fonts/Roboto-Italic.ttf',
-    bolditalics: 'fonts/Roboto-MediumItalic.ttf'
+    normal: __dirname + '/fonts/Roboto-Regular.ttf',
+    bold: __dirname + '/fonts/Roboto-Medium.ttf',
+    italics: __dirname + '/fonts/Roboto-Italic.ttf',
+    bolditalics: __dirname + '/fonts/Roboto-MediumItalic.ttf'
   } 
 };
 
@@ -90,6 +91,7 @@ function createPdf(fileName){
     docDefinition = JSON.parse(JSON.stringify(docDefinition))
     var pdfDoc = printer.createPdfKitDocument(docDefinition, options);
     pdfDoc.pipe(fs.createWriteStream(fileName || 'document.pdf'));
+    console.log('Saving to', fileName)
     pdfDoc.end();
 }
 

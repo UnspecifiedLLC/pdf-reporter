@@ -1,4 +1,7 @@
-{
+var docDefinition = {
+	info: { },
+	header: { },
+	footer: function(currentPage, pageCount) { return currentPage.toString() + ' of ' + pageCount; },
 	"content": [ ],
 	"styles": {
 		"header": {
@@ -17,3 +20,5 @@
 	},
 	"defaultStyle": { }
 }
+
+module.exports = docDefinition

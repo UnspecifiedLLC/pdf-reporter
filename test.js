@@ -5,15 +5,25 @@ var image = {
     height: 200
 }
 
-pdfMaker.initEmptyPdf("Before Test")
+var metaData = {
+    title: 'awesome Document',
+    author: 'UNspecified',
+    subject: 'subject of document',
+    keywords: 'keywords for document',
+}
+
+pdfMaker.initEmptyPdf("Global Header", metaData)
+pdfMaker.addTitle("Before Step")
 pdfMaker.addRow(new Date().toGMTString(), "Step 1", image)
 pdfMaker.createPdf('./out/before.pdf')
-pdfMaker.initEmptyPdf("Test Finishes correctly")
+pdfMaker.initEmptyPdf("Global Header")
+pdfMaker.addTitle("Test Steps")
 pdfMaker.addRow(new Date().toGMTString(), "Step 1")
 pdfMaker.addRow(new Date().toGMTString(), "Assert Step 1", image)
 pdfMaker.createPdf('./out/test1.pdf')
-pdfMaker.initEmptyPdf()
-pdfMaker.addHeader("A Header Added Explicitly")
+pdfMaker.initEmptyPdf("Global Header")
+pdfMaker.addTitle("After Step")
+pdfMaker.addTitle("A Header Added Explicitly")
 pdfMaker.addText("Some text I'm adding explicitly")
 pdfMaker.addRow(new Date().toGMTString(), "Step 1")
 pdfMaker.createPdf('./out/test2.pdf')

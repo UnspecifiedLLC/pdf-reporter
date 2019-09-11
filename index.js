@@ -12,7 +12,7 @@ var PdfPrinter = require('pdfmake');
 const merge = require('easy-pdf-merge');
 var printer = new PdfPrinter(fonts);
 var fs = require('fs');
-var docDefinition = require('./template.json')
+var docDefinition = require('./template')
 
 var options = {};
 /* var now = 'Tue Sep 10 2019 11:26:09'// new Date().toGMTString()
@@ -31,8 +31,11 @@ function mergeDocuments(source_files, dest_file_path) {
   });
 }
 
-function initEmptyPdf(header, suppliedDocumentDefinition) {
+function initEmptyPdf(header, meta, suppliedDocumentDefinition) {
   docDefinition = suppliedDocumentDefinition || docDefinition
+  if (meta) {
+    docDefinition.info = meta
+  }
   if (!suppliedDocumentDefinition) {
     docDefinition.content = []
   }
@@ -41,9 +44,19 @@ function initEmptyPdf(header, suppliedDocumentDefinition) {
   }
 }
 
+function addTitle(text, suppliedDocumentDefinition) {
+  docDefinition = suppliedDocumentDefinition || docDefinition
+  docDefinition.content.push({ text: text, style: 'header'})
+}
+
 function addHeader(header, suppliedDocumentDefinition) {
   docDefinition = suppliedDocumentDefinition || docDefinition
-  docDefinition.content.push({ text: header, style: 'header'})
+  docDefinition.header = { text: header, style: 'header'}
+}
+
+function addFooter(header, suppliedDocumentDefinition) {
+  docDefinition = suppliedDocumentDefinition || docDefinition
+  docDefinition.header = { text: header, style: 'header'}
 }
 
 function addText(text, suppliedDocumentDefinition) {
@@ -87,7 +100,9 @@ module.exports = {
   createPdf,
   mergeDocuments,
   addHeader,
-  addText
+  addText,
+  addTitle,
+  addFooter
 }
 /* initEmptyPdf("Blah")
 addRow(now, image, "Some Step 1")

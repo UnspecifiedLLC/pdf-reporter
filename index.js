@@ -37,18 +37,28 @@ function initEmptyPdf(header, suppliedDocumentDefinition) {
     docDefinition.content = []
   }
   if (header) {
-    docDefinition.content.push({ text: header, style: 'header'})
+    addHeader(header)
   }
 }
 
-function addRow(date, image, description, tableDefinition) {
+function addHeader(header, suppliedDocumentDefinition) {
+  docDefinition = suppliedDocumentDefinition || docDefinition
+  docDefinition.content.push({ text: header, style: 'header'})
+}
+
+function addText(text, suppliedDocumentDefinition) {
+  docDefinition = suppliedDocumentDefinition || docDefinition
+  docDefinition.content.push(text)
+}
+
+function addRow(date, description, image, tableDefinition) {
   if (docDefinition.content.filter(def=>{return def.table}).length < 1) {
     addTable(tableDefinition)
   }
   var row = [
       date,
-      image,
-      description
+      description,
+      image
   ]
   docDefinition.content.filter(def=>{return def.table})[0].table.body.push(row)
 }
@@ -75,7 +85,9 @@ module.exports = {
   addTable,
   addRow,
   createPdf,
-  mergeDocuments
+  mergeDocuments,
+  addHeader,
+  addText
 }
 /* initEmptyPdf("Blah")
 addRow(now, image, "Some Step 1")

@@ -81,8 +81,9 @@ function addTable(tableDefinition) {
   docDefinition.content.push(tableDefinition || {
     style: 'tableExample',
     table: {
-      widths: ['*', 150, '*'],
-      body: []
+      "dontBreakRows": true,
+      "widths": [150, 150, "*"],
+      "body": []
     }
   })
 }

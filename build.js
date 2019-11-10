@@ -30,6 +30,7 @@ function getDoc(pdfDoc, cb) {
     });
     pdfDoc.on('end', function() {
         var result = Buffer.concat(chunks);
+        console.log("ENDED")
         cb(null, result, pdfDoc._pdfMakePages);
     });
     pdfDoc.on('error', cb);

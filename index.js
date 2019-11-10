@@ -10,6 +10,7 @@ var fonts = {
 const merge = require('easy-pdf-merge')
 var fs = require('fs');
 var docDefinition = require('./template')
+var initialized = false
 
 var options = {};
 
@@ -38,6 +39,7 @@ function initEmptyPdf(header, meta, suppliedDocumentDefinition) {
 
 function saveTmpDocDef(def) {
  fs.writeFileSync(__dirname + '/_tmp_report_spec.json', JSON.stringify(def || docDefinition, null, 4))
+ initialized = true
 }
 
 function addTitle(text, suppliedDocumentDefinition) {
@@ -89,15 +91,34 @@ function addTable(tableDefinition) {
  saveTmpDocDef(docDefinition)
 }
 
-function createPdf(fileName, def) {
+function createPdf(fileName, cb) {
  const execFile = require('child_process').execFile;
- const child = execFile('node', [__dirname +'/build.js', fileName], (error, stdout, stderr) => {
-     if (error) {
+ if (initialized) {
+  doExec(fileName)
+ } else {
+  initEmptyPdf("Empty")
+  doExec(fileName)
+ }
+ 
+ function doExec(fileName) {
+   execFile(
+     'node',
+     [__dirname + '/build.js', fileName],
+     (error, stdout, stderr) => {
+       if (error) {
          console.error('stderr', stderr);
          throw error;
+       }
+       console.log('stdout', stdout.trim());
+       if (stdout.trim() === 'Ended') {
+         console.log('Detected Ended');
+         initialized = false
+         return cb(fileName);
+       }
      }
-     console.log('stdout', stdout);
- });
+   );
+ }
+
 }
 
 module.exports = {

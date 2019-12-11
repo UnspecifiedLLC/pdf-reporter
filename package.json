@@ -11,6 +11,8 @@
   "license": "MIT",
   "dependencies": {
     "easy-pdf-merge": "^0.2.2",
-    "pdfmake": "^0.1.59"
+    "image-downloader": "^3.5.0",
+    "pdfmake": "^0.1.59",
+    "request": "^2.88.0"
   }
 }
